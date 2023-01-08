@@ -4,22 +4,23 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 
-class CvGenerator extends Command
+class CvHtmlGenerator extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'cv:make';
+    protected $signature = 'cv:html';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'generate cv';
+    protected $description = 'Generate cv as html';
 
     /**
      * Execute the console command.
@@ -28,9 +29,9 @@ class CvGenerator extends Command
      */
     public function handle()
     {
-        App::setLocale('it');
-        $cv = \PDF::loadView('cv', ['isPdf' => true, 'withMail' => true])
-            ->save("CV-it-lingyong-sun.pdf");
+        $cv = \view('cv')->render();
+        $disk = \Storage::disk('build');
+        $disk->put('it/index.html', $cv);
         return Command::SUCCESS;
     }
 }

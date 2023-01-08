@@ -44,12 +44,19 @@ return [
             'throw' => false,
         ],
 
+        'project' => [
+            'driver' => 'local',
+            'root' => base_path(''),
+            'visibility' => 'private',
+            'throw' => true,
+        ],
+
         'data' => [
             'driver' => 'local',
             'root' => base_path('public'),
             'url' => env('APP_URL').'/',
             'visibility' => 'private',
-            'throw' => false,
+            'throw' => true,
         ],
 
         's3' => [
