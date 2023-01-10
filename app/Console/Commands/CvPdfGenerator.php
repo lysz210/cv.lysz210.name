@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 
 class CvPdfGenerator extends Command
 {
@@ -28,9 +29,15 @@ class CvPdfGenerator extends Command
      */
     public function handle()
     {
-        App::setLocale('it');
-        $cv = \PDF::loadView('cv', ['isPdf' => true, 'withMail' => true])
-            ->save(base_path("build/CV-it-lingyong-sun.pdf"), true);
+        availableLocales()->each(function ($locale) {
+            $this->generateCv($locale);
+        });
         return Command::SUCCESS;
+    }
+
+    private function generateCv(String $locale) {
+        App::setLocale($locale);
+        \PDF::loadView('cv', ['isPdf' => true, 'withMail' => true])
+            ->save(base_path("build/$locale/CV_lingyong_sun.pdf"), true);
     }
 }

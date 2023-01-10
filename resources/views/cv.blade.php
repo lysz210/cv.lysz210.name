@@ -1,14 +1,5 @@
 @extends('layout.base')
 
-@php
-if (!empty($isPdf) && $isPdf) {
-	$localAsset = $localMix =  'public_path';
-} else {
-	$localMix =  'mix';
-	$localAsset = 'asset';
-}
-@endphp
-
 @section('page-title', 'Curriculum vitae di Lingyong Sun')
 
 @section('head')
@@ -19,13 +10,13 @@ if (!empty($isPdf) && $isPdf) {
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-		<link rel="stylesheet" type="text/css" href="{{ $localMix('css/cv/main_style.css') }}">
-		@endsection
+		<link rel="stylesheet" type="text/css" href="{{ (!empty($isPdf) && $isPdf) ? public_path('css/cv/main_style.css') : '/css/cv/main_style.css' }}">
+@endsection
 
 @section('body')
 <header>
 	<h1>
-		<img class="logo-auropass" src="{{ $localAsset('images/europass-inline.svg') }}" alt="logo europass" title="logo europass" />
+		<img class="logo-auropass" src="data:image/svg+xml;base64,{{ toBase64(public_path('images/europass-inline.svg')) }}" alt="logo europass" title="logo europass" />
 		<span>Curriculum Vitae</span>
 	</h1>
 </header>

@@ -29,9 +29,19 @@ class CvHtmlGenerator extends Command
      */
     public function handle()
     {
-        $cv = \view('cv')->render();
-        $disk = \Storage::disk('build');
-        $disk->put('it/index.html', $cv);
+        availableLocales()->each(function ($locale) {
+
+            dump($locale);
+            $this->generateHtml($locale);
+        });
         return Command::SUCCESS;
+    }
+
+    private function generateHtml(String $locale) {
+        App::setLocale($locale);
+        $cv = view('cv', ['withMail' => true])
+            ->toHtml();
+        $disk = Storage::disk('project');
+        $disk->put("build/$locale/index.html", $cv);
     }
 }

@@ -10,3 +10,8 @@ function mapLocale ($dir, $subject) {
         ];
     });
 }
+
+function availableLocales () {
+    $locales = Storage::createLocalDriver(['root' => base_path('lang')]);
+    return collect($locales->directories());
+}
