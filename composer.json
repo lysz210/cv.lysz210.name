@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "barryvdh/laravel-snappy": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
+        "h4cc/wkhtmltoimage-amd64": "^0.12.4",
         "h4cc/wkhtmltopdf-amd64": "^0.12.4",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
@@ -29,7 +30,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helpers/locale.php"
+            "app/Helpers/locale.php",
+            "app/Helpers/assets.php"
         ]
     },
     "autoload-dev": {

@@ -43,7 +43,7 @@ return [
     
     'image' => [
         'enabled' => true,
-        'binary'  => env('WKHTML_IMG_BINARY', '/usr/local/bin/wkhtmltoimage'),
+        'binary'  => env('WKHTML_IMG_BINARY', 'vendor/bin/wkhtmltoimage-amd64'),
         'timeout' => false,
         'options' => [],
         'env'     => [],
