@@ -13,7 +13,7 @@ class CvPdfGenerator extends Command
      *
      * @var string
      */
-    protected $signature = 'cv:pdf';
+    protected $signature = 'cv:pdf  {locale}';
 
     /**
      * The console command description.
@@ -29,15 +29,10 @@ class CvPdfGenerator extends Command
      */
     public function handle()
     {
-        availableLocales()->each(function ($locale) {
-            $this->generateCv($locale);
-        });
+        App::setLocale($this->argument('locale'));
+        $cv = \PDF::loadView('cv', ['isPdf' => true, 'withMail' => true])
+            ->output();
+        $this->line(base64_encode($cv));
         return Command::SUCCESS;
-    }
-
-    private function generateCv(String $locale) {
-        App::setLocale($locale);
-        \PDF::loadView('cv', ['isPdf' => true, 'withMail' => true])
-            ->save(base_path("build/$locale/CV_lingyong_sun.pdf"), true);
     }
 }

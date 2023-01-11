@@ -2,6 +2,14 @@
 
 @section('page-title', 'Curriculum vitae di Lingyong Sun')
 
+@php
+$path = (!empty($isPdf) && $isPdf)
+	? 'public_path'
+	: function ($asset) {
+		return $asset;
+	}
+@endphp
+
 @section('head')
 		<meta name="description" content="Curriculum vitae di Lingyong Sun aggiornato a Settembre 2015">
 		<meta name="author" content="Linyong Sun">
@@ -10,13 +18,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-		<link rel="stylesheet" type="text/css" href="{{ (!empty($isPdf) && $isPdf) ? public_path('css/cv/main_style.css') : '/css/cv/main_style.css' }}">
+		<link rel="stylesheet" type="text/css" href="{{ $path('/css/cv/main_style.css') }}">
 @endsection
 
 @section('body')
 <header>
 	<h1>
-		<img class="logo-auropass" src="data:image/svg+xml;base64,{{ toBase64(public_path('images/europass-inline.svg')) }}" alt="logo europass" title="logo europass" />
+		<img class="logo-auropass" src="{{ $path('/images/europass-inline.svg') }}" alt="logo europass" title="logo europass" />
 		<span>Curriculum Vitae</span>
 	</h1>
 </header>
