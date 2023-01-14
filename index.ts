@@ -6,6 +6,7 @@ import { execSync } from 'child_process'
 
 // Create an AWS resource (S3 Bucket)
 const bucket = new aws.s3.Bucket("cv.lysz210.name", {
+    bucket: 'cv.lysz210.name',
     website: {
         indexDocument: "index.html"
     }
@@ -50,6 +51,13 @@ const cvLogo = new aws.s3.BucketObject('images/europass-inline.svg', {
     acl: 'public-read',
     contentType: 'image/svg+xml'
 });
+// public/me/social-accounts.json
+const socialAccounts = new aws.s3.BucketObject('me/social-accounts.json', {
+    bucket: bucket.id,
+    source: new pulumi.asset.FileAsset('public/me/social-accounts.json'),
+    acl: 'public-read',
+    contentType: 'application/json'
+})
 
 // Export the name of the bucket
 export const bucketName = bucket.id;
@@ -57,4 +65,5 @@ export const enCv = enIndex.id;
 export const itCv = itIndex.id;
 export const enCvPdf = enPdf.id;
 export const itCvPdf = itPdf.id;
+export const socials = socialAccounts.id;
 export const cvEndpoint = bucket.websiteEndpoint;
