@@ -9,7 +9,13 @@ const bucket = new aws.s3.Bucket("cv.lysz210.name", {
     bucket: 'cv.lysz210.name',
     website: {
         indexDocument: "index.html"
-    }
+    },
+    corsRules: [
+        {
+            allowedMethods: ['GET'],
+            allowedOrigins: ['*']
+        }
+    ]
 });
 
 
