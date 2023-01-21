@@ -1,2 +1,4 @@
 config:
   aws:region: eu-south-1
+  cv.lysz210.name:emailPersonal:
+    secure: AAABAH8lnpFhbY0rGSpIk9ucb0Kuj5phKNyWIluqGRrfhCCXqJiIgWnaBhiPzLbjZw/k8CkD

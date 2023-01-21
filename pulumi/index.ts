@@ -1,7 +1,9 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
 import * as awsx from "@pulumi/awsx";
-import { execSync } from 'child_process'
+import { local } from '@pulumi/command';
+
+const configs = new pulumi.Config();
 
 // Create an AWS resource (S3 Bucket)
 const bucket = new aws.s3.Bucket("cv.lysz210.name", {
@@ -18,31 +20,46 @@ const bucket = new aws.s3.Bucket("cv.lysz210.name", {
 });
 
 const runOptions = {
-    cwd: '..'
+    delete: "echo 'nothing to do'",
+    dir: '..',
+    environment: {
+        MAIL_PERSONAL: configs.requireSecret('emailPersonal')
+    }
 }
-
 
 const enIndex = new aws.s3.BucketObject('en/index.html', {
     bucket: bucket.id,
-    contentBase64: execSync('php artisan cv:html en', runOptions).toString(),
+    contentBase64: new local.Command('buildCvEn', {
+        create: 'php artisan cv:html en',
+        ...runOptions
+    }).stdout,
     acl: 'public-read',
     contentType: 'text/html'
 });
 const itIndex = new aws.s3.BucketObject('it/index.html', {
     bucket: bucket.id,
-    contentBase64: execSync('php artisan cv:html it', runOptions).toString(),
+    contentBase64: new local.Command('buildCvIt', {
+        create: 'php artisan cv:html it',
+        ...runOptions
+    }).stdout,
     acl: 'public-read',
     contentType: 'text/html'
 });
 const enPdf = new aws.s3.BucketObject('en/CV_lingyong_sun.pdf', {
     bucket: bucket.id,
-    contentBase64: execSync('php artisan cv:pdf it', runOptions).toString(),
+    contentBase64: new local.Command('buildCvPdfEn', {
+        create: 'php artisan cv:pdf en',
+        ...runOptions
+    }).stdout,
     acl: 'public-read',
     contentType: 'application/pdf'
 });
 const itPdf = new aws.s3.BucketObject('it/CV_lingyong_sun.pdf', {
     bucket: bucket.id,
-    contentBase64: execSync('php artisan cv:pdf it', runOptions).toString(),
+    contentBase64: new local.Command('buildCvPdfIt', {
+        create: 'php artisan cv:pdf it',
+        ...runOptions
+    }).stdout,
     acl: 'public-read',
     contentType: 'application/pdf'
 });
