@@ -1,7 +1,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
 import * as awsx from "@pulumi/awsx";
-import { local } from '@pulumi/command';
+import { local, remote } from '@pulumi/command';
 
 const configs = new pulumi.Config();
 
@@ -83,6 +83,16 @@ const socialAccounts = new aws.s3.BucketObject('me/social-accounts.json', {
     source: new pulumi.asset.FileAsset('../public/me/social-accounts.json'),
     acl: 'public-read',
     contentType: 'application/json'
+})
+
+const cvTraefik = new remote.CopyFile('traefik', {
+    connection: {
+        host: 'lysz210.name',
+        user: 'ubuntu',
+        privateKey: configs.requireSecret('awsMiPem')
+    },
+    localPath: './cv-traefik.yaml',
+    remotePath: 'swarm-controller/configs/traefik/cv.yaml'
 })
 
 // Export the name of the bucket

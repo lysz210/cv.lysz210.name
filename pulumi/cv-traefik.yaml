@@ -1,0 +1,25 @@
+http:
+  routers:
+    cv-legacy:
+      entryPoints:
+        - http
+      rule: "Host(`cv.lysz210.name`)"
+      middlewares:
+        - https-redirect@file
+      service: cv-legacy
+    cv:
+      entryPoints:
+        - https
+      service: s3-bucket-cv
+      rule: "Host(`cv.lysz210.name`)"
+      tls:
+        certresolver: le
+  services:
+    s3-bucket-cv:
+      loadBalancer:
+        servers:
+          - url: http://cv.lysz210.name.s3-website.eu-south-1.amazonaws.com
+    cv-legacy:
+        loadBalancer:
+          servers:
+            - port: 80
