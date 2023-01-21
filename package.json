@@ -1,12 +1,14 @@
 {
-    "name": "cv.lysz210.name",
-    "main": "index.ts",
-    "devDependencies": {
-        "@types/node": "^14"
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
     },
-    "dependencies": {
-        "@pulumi/pulumi": "^3.0.0",
-        "@pulumi/aws": "^5.0.0",
-        "@pulumi/awsx": "^1.0.0"
+    "devDependencies": {
+        "axios": "^1.1.2",
+        "laravel-vite-plugin": "^0.7.2",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14",
+        "vite": "^4.0.0"
     }
 }
