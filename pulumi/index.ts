@@ -4,12 +4,24 @@ import * as awsx from "@pulumi/awsx";
 import { local, remote } from '@pulumi/command';
 
 const configs = new pulumi.Config();
+const PublicRead = aws.s3.CannedAcl.PublicRead;
 
 // Create an AWS resource (S3 Bucket)
 const bucket = new aws.s3.Bucket("cv.lysz210.name", {
     bucket: 'cv.lysz210.name',
+    acl: PublicRead,
     website: {
-        indexDocument: "index.html"
+        indexDocument: "index.html",
+        routingRules: [
+            {
+                Condition: {
+                    HttpErrorCodeReturnedEquals: '404'
+                },
+                Redirect: {
+                    ReplaceKeyWith: 'en'
+                }
+            }
+        ]
     },
     corsRules: [
         {
@@ -33,7 +45,7 @@ const enIndex = new aws.s3.BucketObject('en/index.html', {
         create: 'php artisan cv:html en',
         ...runOptions
     }).stdout,
-    acl: 'public-read',
+    acl: PublicRead,
     contentType: 'text/html'
 });
 const itIndex = new aws.s3.BucketObject('it/index.html', {
@@ -42,7 +54,7 @@ const itIndex = new aws.s3.BucketObject('it/index.html', {
         create: 'php artisan cv:html it',
         ...runOptions
     }).stdout,
-    acl: 'public-read',
+    acl: PublicRead,
     contentType: 'text/html'
 });
 const enPdf = new aws.s3.BucketObject('en/CV_lingyong_sun.pdf', {
@@ -51,7 +63,7 @@ const enPdf = new aws.s3.BucketObject('en/CV_lingyong_sun.pdf', {
         create: 'php artisan cv:pdf en',
         ...runOptions
     }).stdout,
-    acl: 'public-read',
+    acl: PublicRead,
     contentType: 'application/pdf'
 });
 const itPdf = new aws.s3.BucketObject('it/CV_lingyong_sun.pdf', {
@@ -60,28 +72,28 @@ const itPdf = new aws.s3.BucketObject('it/CV_lingyong_sun.pdf', {
         create: 'php artisan cv:pdf it',
         ...runOptions
     }).stdout,
-    acl: 'public-read',
+    acl: PublicRead,
     contentType: 'application/pdf'
 });
 // css/cv/main_style.css
 const cvMainCss = new aws.s3.BucketObject('css/cv/main_style.css', {
     bucket: bucket.id,
     source: new pulumi.asset.FileAsset('../public/css/cv/main_style.css'),
-    acl: 'public-read',
+    acl: PublicRead,
     contentType: 'text/css'
 });
 // images/europass-inline.svg
 const cvLogo = new aws.s3.BucketObject('images/europass-inline.svg', {
     bucket: bucket.id,
     source: new pulumi.asset.FileAsset('../public/images/europass-inline.svg'),
-    acl: 'public-read',
+    acl: PublicRead,
     contentType: 'image/svg+xml'
 });
 // public/me/social-accounts.json
 const socialAccounts = new aws.s3.BucketObject('me/social-accounts.json', {
     bucket: bucket.id,
     source: new pulumi.asset.FileAsset('../public/me/social-accounts.json'),
-    acl: 'public-read',
+    acl: PublicRead,
     contentType: 'application/json'
 })
 
