@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('cv', ['isPdf' => false, 'withMail' => false]);
 });
+Route::get('/{lang}', function ($lang) {
+    \App::setLocale($lang);
+    return view('cv', ['isPdf' => false, 'withMail' => false]);
+});

@@ -27,7 +27,7 @@
                 <dt>
                     Skype
                 </dt>
-                <dd>
+                <dd class="last">
                     lysz210
                 </dd>
                 <dt class="print_only">

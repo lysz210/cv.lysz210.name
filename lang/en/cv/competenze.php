@@ -25,12 +25,6 @@ return [
                     "parlato" => "B2",
                     "scritto" => "B2"
                 ],
-                "francese" => [
-                    "name" => "French",
-                    "comprensione" => "A1",
-                    "parlato" => "A1",
-                    "scritto" => "A1"
-                ],
             ],
             "footer" => $tmpfoot
         ]
@@ -38,6 +32,31 @@ return [
     "informatiche" => [
         "title" => "IT skills",
         "list" => [
+            [
+                "title" => "Java 8+",
+                "content" => [
+                    "Intermediate/advanced user",
+                    "Springboot, JPA - Hibernate, Spring batch, PrimeFaces",
+                    "SonarLing",
+                    [
+                        "title" => "Testing",
+                        "content" => [
+                            "JUnit 5",
+                            "Assertj",
+                            "Contract test with Pact",
+                            "Performance test with Gatling"
+                        ]
+                    ]
+                ]
+            ],
+            [
+                "title" => "JavaScript programming",
+                "content" => [
+                    "Intermediate programmer",
+                    "Good user of Rxjs",
+                    "Basic knowledge of main Front-End framework"
+                ]
+            ],
             [
                 "title" => "Database",
                 "content" => [
@@ -54,44 +73,6 @@ return [
                     "Docker - Mirantis",
                     "Instana",
                     "Splunk"
-                ]
-            ],
-            [
-                "title" => "Java 8+",
-                "content" => [
-                    "Intermediate/advanced user",
-                    "Spring: Springboot, PrimeFaces",
-                    "SonarLing",
-                    [
-                        "title" => "Testing",
-                        "content" => [
-                            "JUnit 5",
-                            "Assertj",
-                            "Contract test with Pact",
-                            "Performance test with Gatling"
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "title" => "JavaScript programming",
-                "content" => [
-                    "Socket.io, ajax, rest API",
-                    "PouchDB for distributed database with CouchDB",
-                    "Basic http server with Koa.js",
-                    "Cron script with Rxjs for data processing",
-                    "DBMS connection and CouchDB for distributed NoSQL Database",
-                    [
-                        "title" => "Frameworks",
-                        "content" => [
-                            "Electron",
-                            "Vuejs",
-                            "Quasarjs",
-                            "Vuetify",
-                            "Nuxt",
-                            "Angular"
-                        ]
-                    ],
                 ]
             ],
             [

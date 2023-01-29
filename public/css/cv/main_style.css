@@ -37,8 +37,8 @@ ol, ul {
 blockquote, q {
 	quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
+blockquote::before, blockquote::after,
+q::before, q::after {
 	content: '';
 	content: none;
 }
@@ -188,12 +188,15 @@ section > dl > dd {
   display: inline;
 }
 
-#contatti_social dd:after {
-  content: "\a";
+#contatti_social dd::after {
+  content: "-";
   white-space: pre;
 }
+#contatti_social dd.last::after {
+  content: "";
+}
 
-#contatti_social dt:after {
+#contatti_social dt::after {
   content: ": ";
 }
 
@@ -242,7 +245,7 @@ footer {
     display: none;
   }
 
-  a:after {
+  a::after {
     content: " (" attr(href) ")";
     font-style: italic;
   }

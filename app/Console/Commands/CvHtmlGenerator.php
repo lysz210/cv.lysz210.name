@@ -30,7 +30,7 @@ class CvHtmlGenerator extends Command
     public function handle()
     {
         App::setLocale($this->argument('locale'));
-        $cv = view('cv', ['withMail' => true])
+        $cv = view('cv', ['withMail' => false])
             ->toHtml();
         $this->line(base64_encode($cv));
         return Command::SUCCESS;
