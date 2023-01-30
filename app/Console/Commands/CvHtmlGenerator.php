@@ -13,7 +13,7 @@ class CvHtmlGenerator extends Command
      *
      * @var string
      */
-    protected $signature = 'cv:html {locale}';
+    protected $signature = 'cv:html {locale} {--outputDir=build}';
 
     /**
      * The console command description.
@@ -29,10 +29,20 @@ class CvHtmlGenerator extends Command
      */
     public function handle()
     {
+        $locale = $this->argument('locale');
+        $outputDir = $this->option('outputDir');
+        $disk = Storage::build([
+            'driver' => 'local',
+            'root' => base_path("$outputDir"),
+            'visibility' => 'private',
+            'throw' => true,
+        ]);
+
         App::setLocale($this->argument('locale'));
         $cv = view('cv', ['withMail' => false])
             ->toHtml();
-        $this->line(base64_encode($cv));
+        
+        $disk->put("$locale/index.html", $cv);
         return Command::SUCCESS;
     }
 }
