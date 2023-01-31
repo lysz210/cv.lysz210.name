@@ -32,7 +32,6 @@ const bucket = new aws.s3.Bucket("cv.lysz210.name", {
 });
 
 const runOptions = {
-    delete: "echo 'nothing to do'",
     dir: '..',
     environment: {
         MAIL_PERSONAL: configs.requireSecret('emailPersonal')
@@ -41,8 +40,8 @@ const runOptions = {
 
 const enIndex = new aws.s3.BucketObject('en/index.html', {
     bucket: bucket.id,
-    contentBase64: new local.Command('buildCvEn', {
-        create: 'php artisan cv:html en',
+    contentBase64: local.runOutput({
+        command: 'php artisan cv:html en',
         ...runOptions
     }).stdout,
     acl: PublicRead,
@@ -50,8 +49,8 @@ const enIndex = new aws.s3.BucketObject('en/index.html', {
 });
 const itIndex = new aws.s3.BucketObject('it/index.html', {
     bucket: bucket.id,
-    contentBase64: new local.Command('buildCvIt', {
-        create: 'php artisan cv:html it',
+    contentBase64: local.runOutput({
+        command: 'php artisan cv:html it',
         ...runOptions
     }).stdout,
     acl: PublicRead,
@@ -59,8 +58,8 @@ const itIndex = new aws.s3.BucketObject('it/index.html', {
 });
 const enPdf = new aws.s3.BucketObject('en/CV_lingyong_sun.pdf', {
     bucket: bucket.id,
-    contentBase64: new local.Command('buildCvPdfEn', {
-        create: 'php artisan cv:pdf en',
+    contentBase64: local.runOutput({
+        command: 'php artisan cv:pdf en',
         ...runOptions
     }).stdout,
     acl: PublicRead,
@@ -68,8 +67,8 @@ const enPdf = new aws.s3.BucketObject('en/CV_lingyong_sun.pdf', {
 });
 const itPdf = new aws.s3.BucketObject('it/CV_lingyong_sun.pdf', {
     bucket: bucket.id,
-    contentBase64: new local.Command('buildCvPdfIt', {
-        create: 'php artisan cv:pdf it',
+    contentBase64: local.runOutput({
+        command: 'php artisan cv:pdf it',
         ...runOptions
     }).stdout,
     acl: PublicRead,
