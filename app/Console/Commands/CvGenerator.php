@@ -34,9 +34,13 @@ class CvGenerator extends Command
     public function handle()
     {
         $outputDir = $this->option('outputDir');
+        $distPath = base_path("$outputDir");
+        \App::bind('path.public', function() use($distPath) {
+            return $distPath;
+        });
         $disk = Storage::build([
             'driver' => 'local',
-            'root' => base_path("$outputDir"),
+            'root' => $distPath,
             'visibility' => 'private',
             'throw' => true,
         ]);
@@ -45,6 +49,9 @@ class CvGenerator extends Command
             ->each(function($elt) use ($disk) {
                 $this->generate($elt[0], $elt[1], $disk);
             });
+        \App::bind('path.public', function() {
+            return \App::publicPath();
+        });
         return Command::SUCCESS;
     }
 
