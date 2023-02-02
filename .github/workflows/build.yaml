@@ -19,6 +19,7 @@ jobs:
       - run: npm ci
       - run: npm run production
   build-php:
+    needs: build-node
     runs-on: ubuntu-latest
 
     steps:
