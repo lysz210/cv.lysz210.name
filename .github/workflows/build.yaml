@@ -31,7 +31,7 @@ jobs:
         run: npm ci
       - uses: pulumi/actions@v4
         with:
-          command: deploy
+          command: up
           stack-name: lysz210/cv.lysz210.name/dev
           work-dir: pulumi
         env:
