@@ -16,4 +16,6 @@ mix
     .postCss('resources/css/main_style.css', 'css', [
         //
     ])
-    .copy('resources/assets/images', 'build/images');
+    .copy('resources/assets/images', 'build/images')
+    .copy('public/me', 'build/me')
+    .version();
