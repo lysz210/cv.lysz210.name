@@ -17,3 +17,10 @@ yarn-error.log
 /.idea
 /.vscode
 /build
+
+# ignore all public content except laravel initial files
+/public/*
+!/public/favicon.ico
+!/public/.htaccess
+!/public/index.php
+!/public/robots.txt
