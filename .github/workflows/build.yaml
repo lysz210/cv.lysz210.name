@@ -27,6 +27,6 @@ jobs:
       - name: Setup PHP
         uses: php-actions/composer@v6
         with:
-          php_version: '8.x'
+          php_version: '8'
           version: 2.x
       - run: php artisan cv:gen pdf html --locale=en --locale=it
