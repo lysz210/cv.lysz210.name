@@ -57,15 +57,15 @@ glob.sync('**/*', {
 // on file channge.
 // This is a temporary solution, need a proper
 // change detection on contente in resource log
-const treafixFilePath = './cv-traefik.yaml';
-const hash = md5(readFileSync(treafixFilePath));
+const treafikFilePath = './cv-traefik.yaml';
+const hash = md5(readFileSync(treafikFilePath));
 const cvTraefik = new remote.CopyFile(`traefik-${hash}`, {
     connection: {
         host: 'lysz210.name',
         user: 'ubuntu',
         privateKey: configs.requireSecret('awsMiPem')
     },
-    localPath: treafixFilePath,
+    localPath: treafikFilePath,
     remotePath: 'swarm-controller/configs/traefik/cv.yaml'
 })
 
