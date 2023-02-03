@@ -24,7 +24,10 @@ jobs:
         with:
           php_version: '8'
           version: 2.x
-      - run: php artisan cv:gen pdf html --locale=en --locale=it
+      - name: Build cv files
+        run: php artisan cv:gen pdf html --locale=en --locale=it
+        env:
+          MAIL_PERSONAL: ${{ MAIL_PERSONAL }}
 
       - name: Pulumi dependences
         working-directory: ./pulumi
