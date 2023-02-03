@@ -2,6 +2,7 @@
     "name": "cv.lysz210.name",
     "main": "index.ts",
     "devDependencies": {
+        "@types/md5": "^2.3.2",
         "@types/node": "^16"
     },
     "dependencies": {
@@ -10,6 +11,7 @@
         "@pulumi/command": "^0.7.0",
         "@pulumi/pulumi": "^3.0.0",
         "glob": "^8.1.0",
+        "md5": "^2.3.0",
         "mime": "^3.0.0"
     }
 }

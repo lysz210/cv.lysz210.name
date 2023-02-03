@@ -2,8 +2,10 @@ import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
 import * as awsx from "@pulumi/awsx";
 import { remote } from '@pulumi/command';
-import * as glob from 'glob'
-import * as mime from 'mime'
+import * as glob from 'glob';
+import * as mime from 'mime';
+import * as md5 from 'md5';
+import { readFileSync } from "fs";
 
 const configs = new pulumi.Config();
 const PublicRead = aws.s3.CannedAcl.PublicRead;
@@ -51,13 +53,19 @@ glob.sync('**/*', {
     })
 })
 
-const cvTraefik = new remote.CopyFile('traefik', {
+// add suffix in name to ensure trigger changes
+// on file channge.
+// This is a temporary solution, need a proper
+// change detection on contente in resource log
+const treafixFilePath = './cv-traefik.yaml';
+const hash = md5(readFileSync(treafixFilePath));
+const cvTraefik = new remote.CopyFile(`traefik-${hash}`, {
     connection: {
         host: 'lysz210.name',
         user: 'ubuntu',
         privateKey: configs.requireSecret('awsMiPem')
     },
-    localPath: './cv-traefik.yaml',
+    localPath: treafixFilePath,
     remotePath: 'swarm-controller/configs/traefik/cv.yaml'
 })
 
