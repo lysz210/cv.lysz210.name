@@ -27,7 +27,7 @@ jobs:
       - name: Build cv files
         run: php artisan cv:gen pdf html --locale=en --locale=it
         env:
-          MAIL_PERSONAL: "$MAIL_PERSONAL"
+          MAIL_PERSONAL: ${{ env.MAIL_PERSONAL }}
 
       - name: Pulumi dependences
         working-directory: ./pulumi
