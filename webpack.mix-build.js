@@ -13,9 +13,7 @@ const mix = require('laravel-mix');
 
 mix
     .setPublicPath('build')
-    .postCss('resources/css/main_style.css', 'css', [
-        //
-    ])
+    .sass('resources/styles/main_style.scss', 'css')
     .copy('resources/assets/images', 'build/images')
     .copy('public/me', 'build/me')
     .version();
