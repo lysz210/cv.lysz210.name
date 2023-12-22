@@ -21,7 +21,7 @@
                 @foreach (json_decode(Storage::disk('data')->get('me/social-accounts.json')) as $social)
                 <dt>{{ $social->name }}</dt>
                 <dd>
-                    <a href="{{ $social->url }}">{{ $social->username }}</a>
+                    <a href="{{ $social->url }}" target="blank">{{ $social->username }}</a>
                 </dd>
                 @endforeach
                 <dt>

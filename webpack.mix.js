@@ -12,7 +12,5 @@ const mix = require('laravel-mix');
  */
 
 mix
-    .postCss('resources/css/main_style.css', 'css', [
-        //
-    ])
+    .sass('resources/styles/main_style.scss', 'css')
     .copy('resources/assets/images', 'public/images');
